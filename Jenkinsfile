@@ -4,6 +4,7 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
+        dockerhub=credentials('dockerhub')
     }
     
     stages {
@@ -32,6 +33,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
+                    echo '$dockerhub_PSW | docker login -u $dockerhub_USR **password-stdin'
                     docker push somanaboina/cicd-e2e:${BUILD_NUMBER}
                     '''
                 }
